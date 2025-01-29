@@ -1,39 +1,25 @@
 #include "forca-bruta.h"
-#include <stdio.h>
-#include <string.h>
 
-void forcaBrutaPadrao(const char *texto, const char *padrao) {
-    int n = strlen(texto);
-    int m = strlen(padrao);
-    int i, j;
+void forcaBruta(char *texto, char *padrao){
 
-    printf("Procurando o padrão '%s' no texto '%s'\n", padrao, texto);
+    int tamTexto = strlen(texto);
+    int tamPadrao = strlen(padrao);
+    int j;
 
-    for (i = 0; i <= n - m; i++) {
+    for (int i = 0; i <= tamTexto-tamPadrao; i++){
+
         j = 0;
         
-        while (j < m && texto[i + j] == padrao[j]) {
+        while (j < tamPadrao && texto[i + j] == padrao[j])
             j++;
+
+        if (j == tamPadrao){
+            printf("S %d\n", i);
+            return;
         }
 
-        if (j == m) {
-            printf("Padrão encontrado na posição %d\n", i);
-        }
     }
-}
 
-int main() {
-    char texto[1000], padrao[100];
+    printf("N\n");
 
-    printf("Digite o texto: ");
-    fgets(texto, sizeof(texto), stdin);
-    texto[strcspn(texto, "\n")] = '\0';
-
-    printf("Digite o padrão: ");
-    fgets(padrao, sizeof(padrao), stdin);
-    padrao[strcspn(padrao, "\n")] = '\0';
-
-    forcaBrutaPadrao(texto, padrao);
-
-    return 0;
 }

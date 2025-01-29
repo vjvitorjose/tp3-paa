@@ -15,13 +15,15 @@ int leitura(char** argv){
     while(1){
 
         fscanf(file, "%d %d\n", &tamTexto, &tamPadrao);
-        fgetc(file);
 
         if(tamTexto == 0)
             break;
 
         texto = malloc(tamTexto+1 * sizeof(char)); //incrementa 1 no tamanho do texto para incluir o \0
         padrao = malloc(tamPadrao+1 * sizeof(char));
+
+        texto[tamTexto] = '\0';
+        padrao[tamPadrao] = '\0';
 
         fgets(buffer, sizeof(buffer), file);
     
@@ -73,11 +75,9 @@ int leitura(char** argv){
             }
         }
 
-        printf("%s %s\n", texto, padrao);
-
         switch(atoi(argv[2])){
             case 1:
-                //forca bruta
+                forcaBruta(texto, padrao);
                 break;
             case 2:
                 //kmp

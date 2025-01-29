@@ -6,7 +6,7 @@ executavel: main.o in-out.o forca-bruta.o
 main.o: main.c
 	gcc -c main.c
 
-in-óut.o: in-out.c
+in-out.o: in-out.c
 	gcc -c in-out.c
 
 forca-bruta.o: forca-bruta.c
