@@ -1,18 +1,14 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdint.h> // Para usar inteiros de tamanho fixo, como uint64_t
+#include "shift-and-exato.h"
 
-#define TAMANHO_MAX_PADRAO 64 // Limite máximo para o tamanho do padrão
+int** criaMascara(int l, int c){
 
-void shiftAndExato(const char *texto, const char *padrao) {
-    int n = strlen(texto);    // Tamanho do texto
-    int m = strlen(padrao);   // Tamanho do padrão
+    int** mascara = malloc(l*sizeof(int*));
 
-    if (m > TAMANHO_MAX_PADRAO) {
-        printf("O padrão excede o tamanho máximo suportado (%d caracteres).\n", TAMANHO_MAX_PADRAO);
-        return;
+    for(int j = 0; j < l; j++){
+        mascara[j] = (int*)malloc(c*sizeof(int));
     }
 
+<<<<<<< HEAD
     uint64_t mascara[256] = {0}; // Tabela de bits para cada caractere ASCII
     uint64_t estado = 0;         // Estado atual
     uint64_t mascaraFinal = (1ULL << (m - 1)); // Mascara para verificar o padrão completo
@@ -35,20 +31,46 @@ void shiftAndExato(const char *texto, const char *padrao) {
             printf("Padrão encontrado na posição %d\n", i - m + 1);
         }
     }
+=======
+    return mascara;
+
+>>>>>>> d1d587b (.)
 }
 
-int main() {
-    char texto[1000], padrao[65];
+void freeMascara(int** mascara, int l, int c){
 
-    printf("Digite o texto: ");
-    fgets(texto, sizeof(texto), stdin);
-    texto[strcspn(texto, "\n")] = '\0'; // Remove o caractere de nova linha
+    for(int i = 0; i < l; i++){
+        free(mascara[i]);
+    }
 
-    printf("Digite o padrão (máximo %d caracteres): ", TAMANHO_MAX_PADRAO);
-    fgets(padrao, sizeof(padrao), stdin);
-    padrao[strcspn(padrao, "\n")] = '\0'; // Remove o caractere de nova linha
+    free(mascara);
 
-    shiftAndExato(texto, padrao);
+}
 
-    return 0;
+void preencheMascara(int** mascara, char* padrao){
+
+    for(int i = 0; i < strlen(padrao); i++)
+        mascara[(int)padrao[i]-65][i] = 1;
+
+}
+
+void shiftAnd(char* texto, char* padrao){
+
+    int** mascara = criaMascara(26, strlen(padrao));
+
+    preencheMascara(mascara, padrao);
+
+    int R[sizeof(padrao)];
+
+    
+
+    freeMascara(mascara, 26, strlen(padrao));    
+
+}
+
+int main(){
+    char* texto = "ABCDEFG";
+    char* padrao = "BCD";
+    shiftAnd(texto, padrao);
+    return 1;
 }
