@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
-// Função para construir a tabela de prefixos (LPS - Longest Prefix Suffix)
 void construirTabelaLPS(const char *padrao, int m, int *lps) {
     int len = 0;  // Comprimento do maior prefixo-sufixo até o momento
     int i = 1;
 
-    lps[0] = 0;  // O primeiro valor é sempre 0
+    lps[0] = 0;
 
-    // Construir o LPS para todo o padrão
     while (i < m) {
         if (padrao[i] == padrao[len]) {
             len++;

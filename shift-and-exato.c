@@ -17,7 +17,7 @@ void shiftAndExato(const char *texto, const char *padrao) {
     uint64_t estado = 0;         // Estado atual
     uint64_t mascaraFinal = (1ULL << (m - 1)); // Mascara para verificar o padrão completo
     int i;
-
+    
     // Construir a máscara para cada caractere do padrão
     for (i = 0; i < m; i++) {
         mascara[(unsigned char)padrao[i]] |= (1ULL << i);
