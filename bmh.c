@@ -39,19 +39,3 @@ void buscarPadraoBMH(const char *texto, const char *padrao) {
         }
     }
 }
-
-int main() {
-    char texto[1000], padrao[100];
-
-    printf("Digite o texto: ");
-    fgets(texto, sizeof(texto), stdin);
-    texto[strcspn(texto, "\n")] = '\0';
-
-    printf("Digite o padrão: ");
-    fgets(padrao, sizeof(padrao), stdin);
-    padrao[strcspn(padrao, "\n")] = '\0';
-
-    buscarPadraoBMH(texto, padrao);
-
-    return 0;
-}

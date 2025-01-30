@@ -83,7 +83,7 @@ int leitura(char** argv){
                 //kmp
                 break;
             case 3:
-                //bmh
+                buscarPadraoBMH(texto, padrao);    //bmh
                 break;
             case 4:
                 //shiftAnd

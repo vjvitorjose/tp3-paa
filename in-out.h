@@ -3,5 +3,6 @@
 #include <string.h>
 
 #include "forca-bruta.h"
+#include "bmh.h"
 
 int leitura(char** argv);
