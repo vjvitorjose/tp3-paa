@@ -80,12 +80,6 @@ int leitura(char** argv){
                 forcaBruta(texto, padrao);
                 break;
             case 2:
-                //kmp
-                break;
-            case 3:
-                buscarPadraoBMH(texto, padrao);    //bmh
-                break;
-            case 4:
                 shiftAnd(texto, padrao);
                 break;
         }
