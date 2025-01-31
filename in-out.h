@@ -4,5 +4,6 @@
 
 #include "forca-bruta.h"
 #include "bmh.h"
+#include "shift-and-exato.h"
 
 int leitura(char** argv);

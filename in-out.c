@@ -86,7 +86,7 @@ int leitura(char** argv){
                 buscarPadraoBMH(texto, padrao);    //bmh
                 break;
             case 4:
-                //shiftAnd
+                shiftAnd(texto, padrao);
                 break;
         }
 

@@ -8,33 +8,20 @@ int** criaMascara(int l, int c){
         mascara[j] = (int*)malloc(c*sizeof(int));
     }
 
-<<<<<<< HEAD
-    uint64_t mascara[256] = {0}; // Tabela de bits para cada caractere ASCII
-    uint64_t estado = 0;         // Estado atual
-    uint64_t mascaraFinal = (1ULL << (m - 1)); // Mascara para verificar o padrão completo
-    int i;
-    
-    // Construir a máscara para cada caractere do padrão
-    for (i = 0; i < m; i++) {
-        mascara[(unsigned char)padrao[i]] |= (1ULL << i);
-    }
+    zeraMascara(mascara, l, c);
 
-    printf("Procurando o padrão '%s' no texto '%s'\n", padrao, texto);
-
-    // Percorrer o texto
-    for (i = 0; i < n; i++) {
-        // Atualizar o estado atual usando operações bitwise
-        estado = ((estado << 1) | 1ULL) & mascara[(unsigned char)texto[i]];
-
-        // Verificar se o padrão foi encontrado
-        if (estado & mascaraFinal) {
-            printf("Padrão encontrado na posição %d\n", i - m + 1);
-        }
-    }
-=======
     return mascara;
 
->>>>>>> d1d587b (.)
+}
+
+void zeraMascara(int** mascara, int l, int c){
+
+    for(int i = 0; i < l; i++){
+        for(int j = 0; j < c; j++){
+            mascara[i][j] = 0;
+        }
+    }
+
 }
 
 void freeMascara(int** mascara, int l, int c){
@@ -54,23 +41,57 @@ void preencheMascara(int** mascara, char* padrao){
 
 }
 
+void zeraR(int* R, int tam){
+
+    for(int i = 0; i < tam; i++){
+        R[i] = 0;
+    }
+
+}
+
+void deslocaR(int* R, int tam){
+
+    for(int j = tam-1; j > 0; j--){
+        R[j] = R[j-1];  
+    }
+    R[0] = 1;
+
+}
+
+void RAndMascara(int* R, int tamR, int** mascara, char caracter){
+
+    for(int i = 0; i < tamR; i++){
+        R[i] = R[i] && mascara[(int)caracter-65][i];
+    }
+
+}
+
 void shiftAnd(char* texto, char* padrao){
 
     int** mascara = criaMascara(26, strlen(padrao));
 
     preencheMascara(mascara, padrao);
 
-    int R[sizeof(padrao)];
+    int tamR = strlen(padrao);
+    int* R = malloc(tamR*sizeof(int));
+    zeraR(R, tamR);
 
-    
+    for(int i = 0; i < strlen(texto); i++){
 
-    freeMascara(mascara, 26, strlen(padrao));    
+        deslocaR(R, tamR);
+        RAndMascara(R, tamR, mascara, texto[i]);
 
-}
+        if(R[tamR-1] == 1){
+            printf("S %d\n", i-tamR+1);
+            freeMascara(mascara, 26, strlen(padrao));
+            free(R);
+            return;
+        }
 
-int main(){
-    char* texto = "ABCDEFG";
-    char* padrao = "BCD";
-    shiftAnd(texto, padrao);
-    return 1;
+    }
+
+    printf("N\n");
+    freeMascara(mascara, 26, strlen(padrao));
+    free(R);  
+
 }
